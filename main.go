@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 func MaxInt(a, b int) int {
 	if a >= b {
@@ -11,5 +14,16 @@ func MaxInt(a, b int) int {
 }
 
 func main() {
-	fmt.Println("Hello, World!")
+	counter := 0
+	var wg sync.WaitGroup
+
+	for i := range 100 {
+		wg.Go(func() {
+			fmt.Println(i)
+			counter = counter + i
+		})
+	}
+
+	wg.Wait()
+	fmt.Println(counter)
 }
