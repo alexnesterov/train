@@ -1,0 +1,27 @@
+name: Go
+
+on:
+  push:
+    branches: ["new-workflow"]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+
+    - name: Build
+      run: go build -v ./...
+
+  tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+
+    - name: Test
+      run: go test -v ./...
+
