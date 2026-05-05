@@ -11,22 +11,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-go@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
 
-    - name: Build
-      run: go build -v ./...
+      - name: Build
+        run: go build -v ./...
 
   tests:
     # Задание "tests" зависит от задания "build" и будет выполнено после него
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-go@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
 
-    - name: Test
-      run: go test -v ./...
+      - name: Test
+        run: go test -v ./...
 
   # Задание проверяет наличие в коде состояния гонки
   tests-race:
@@ -34,11 +34,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-go@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
 
-    - name: Test Race
-      run: go test -race -v ./...
+      - name: Test Race
+        run: go test -race -v ./...
 
   # Задание проверяет код на соответствие стилю и отсутствие логических ошибок
   lint:
@@ -46,8 +46,11 @@ jobs:
     needs: [tests, tests-race]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
 
       # Используется действие "golangci/golangci-lint-action@v9", которое запускает линтер. Он проверит код на соответствие стилю и отсутствие логических ошибок
       - uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.11
+
