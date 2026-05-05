@@ -2,16 +2,16 @@ package main
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMaxInt(t *testing.T) {
 	a, b := 2, 7
 
-	res := MaxInt(a, b)
+	got := MaxInt(a, b)
 
-	if res != b {
-		t.Errorf("expected %d, got %d", b, res)
-	}
+	assert.Equal(t, b, got)
 }
 
 func TestMain(m *testing.M) {
